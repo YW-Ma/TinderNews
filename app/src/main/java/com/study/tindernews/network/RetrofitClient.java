@@ -2,7 +2,7 @@ package com.study.tindernews.network;
 
 import android.content.Context;
 
-import com.study.tindernews.Creidentials;
+import com.study.tindernews.Credentials;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String API_KEY = Creidentials.API_KEY;
+    private static final String API_KEY = Credentials.API_KEY;
     private static final String BASE_URL = "https://newsapi.org/v2/";
 
     public static Retrofit newInstance(Context context) {
