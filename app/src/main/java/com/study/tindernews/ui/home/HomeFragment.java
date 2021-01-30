@@ -62,5 +62,5 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
-    }
+    }   // inflate --> 打气筒    把xml的layout拿出来，变成一个Java class，把生成的view attache到需要他的地方。
 }
