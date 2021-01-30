@@ -13,4 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-/src/main/java/com/study/tindernews/Creidentials.java
+# ignore my password file
+Creidentials.java
