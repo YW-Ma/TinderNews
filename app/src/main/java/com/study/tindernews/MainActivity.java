@@ -42,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        NewsApi api = RetrofitClient.newInstance(this).create(NewsApi.class); // reflection
+        Retrofit retrofit = RetrofitClient.newInstance(this);
+        NewsApi newsApi = retrofit.create(NewsApi.class);        // reflection
         // one call is one task, enqueue the task to let executor do it.
         // give a callback to handle response
-        Call<NewsResponse> task = api.getTopHeadlines("CN");
+        Call<NewsResponse> task = newsApi.getTopHeadlines("CN");
         task.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Note1: sync的方法(execute)要在其他线程才能用，可以试试手动new Thread(new Runnable(){ ... sync request(execute) ...}) ，可执行。
         // Note2: async方法(enqueue)，帮我们创建新线程，并主动把数据搬回主线程(防止data race)。
+
     }
 
     // 支持action bar的回退到home的操作
