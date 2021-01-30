@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         NewsApi api = RetrofitClient.newInstance(this).create(NewsApi.class); // reflection
         // one call is one task, enqueue the task to let executor do it.
         // give a callback to handle response
-        api.getTopHeadlines("CN").enqueue(new Callback<NewsResponse>() {
+        Call<NewsResponse> tasks = api.getTopHeadlines("CN");
+        tasks.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
                 // if success print body, else print response(message, code)
@@ -57,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("getTopHeadlines", t.toString());
             }
         });
+
+        // NetworkOnMainThreadException: if send sync requests in main thread, then you will get this Exception
+        // network为何不能在主线程：阻塞主线程 --> block UI
+
+        // Note1: sync的方法(execute)要在其他线程才能用，可以试试手动new Thread(new Runnable(){ ... sync request(execute) ...}) ，可执行。
+        // Note2: async方法(enqueue)，帮我们创建新线程，并主动把数据搬回主线程(防止data race)。
     }
 
     // 支持action bar的回退到home的操作
