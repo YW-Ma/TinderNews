@@ -37,12 +37,16 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         // 2. link action bar and controller：action bar会显示名字、负责返回
         NavigationUI.setupActionBarWithNavController(this, navController);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         NewsApi api = RetrofitClient.newInstance(this).create(NewsApi.class); // reflection
         // one call is one task, enqueue the task to let executor do it.
         // give a callback to handle response
-        Call<NewsResponse> tasks = api.getTopHeadlines("CN");
-        tasks.enqueue(new Callback<NewsResponse>() {
+        Call<NewsResponse> task = api.getTopHeadlines("CN");
+        task.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
                 // if success print body, else print response(message, code)

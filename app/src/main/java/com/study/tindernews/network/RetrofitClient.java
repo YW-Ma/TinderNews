@@ -2,6 +2,7 @@ package com.study.tindernews.network;
 
 import android.content.Context;
 
+import com.ashokvarma.gander.GanderInterceptor;
 import com.study.tindernews.Credentials;
 
 import java.io.IOException;
@@ -20,7 +21,8 @@ public class RetrofitClient {
     public static Retrofit newInstance(Context context) {
         // Write the okHttpClient explicitly to add API_KEY into my header
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new HeaderInterceptor())
+                .addInterceptor(new GanderInterceptor(context).showNotification(true)) // add the Gander Interceptor in RetrofitClient
+                .addInterceptor(new HeaderInterceptor()) // add my API_KEY in header.
                 .build();
 
         return new Retrofit.Builder()

@@ -5,6 +5,7 @@
     <!--访问网络，需要获得权限 we need permission to access internet-->
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:name="TinderNewsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
