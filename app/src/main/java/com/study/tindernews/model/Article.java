@@ -32,4 +32,17 @@ public class Article {
     public int hashCode() {
         return Objects.hash(author, content, description, publishedAt, title, url, urlToImage);
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "author='" + author + '\'' +
+                ", content='" + content + '\'' +
+                ", description='" + description + '\'' +
+                ", publishedAt='" + publishedAt + '\'' +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", urlToImage='" + urlToImage + '\'' +
+                '}';
+    }
 }

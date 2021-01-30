@@ -26,4 +26,15 @@ public class NewsResponse {
     public int hashCode() {
         return Objects.hash(totalResults, articles, code, message, status);
     }
+
+    @Override
+    public String toString() {
+        return "NewsResponse{" +
+                "totalResults=" + totalResults +
+                ", articles=" + articles +
+                ", code='" + code + '\'' +
+                ", message='" + message + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }
