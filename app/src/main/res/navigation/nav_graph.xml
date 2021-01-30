@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--我们选择的 recourse type体现在这个tag name-->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/navigation_home">
+    <!-- bottom_nav_menu: the layout of three items-->
+    <!-- nav_graph: connect fragment with each item-->
 
-<!-- id应该和bottom_nav_menu.xml中一样  -->
-<!-- id should be same to bottom_nav_menu.xml -->
-<!-- bottom_nav_menu: the layout of three items-->
-<!-- nav_graph: connect fragment with each item-->
+    <!-- id is layout, should be same to bottom_nav_menu.xml -->
+    <!-- name is Fragment Class -->
+
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.study.tindernews.ui.home.HomeFragment"
