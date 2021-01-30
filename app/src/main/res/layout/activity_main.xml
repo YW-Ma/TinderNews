@@ -7,8 +7,12 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!-- 绑定nav graph-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
