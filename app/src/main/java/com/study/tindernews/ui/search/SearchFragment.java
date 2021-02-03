@@ -25,9 +25,10 @@ public class SearchFragment extends Fragment {
     // Binding如何知道和哪个绑定？
     // this Fragment + Search + Binding, can help binding
     // to find fragment_search.xml.
+    // annotation preprocessor, compile的时候做的，不是代码运行的时候。
 
     public SearchFragment() {
-    }
+    } // Required empty public constructor
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
