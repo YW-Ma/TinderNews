@@ -43,26 +43,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Retrofit retrofit = RetrofitClient.newInstance(this);
-        NewsApi newsApi = retrofit.create(NewsApi.class);        // reflection
-        // one call is one task, enqueue the task to let executor do it.
-        // give a callback to handle response
-        Call<NewsResponse> task = newsApi.getTopHeadlines("CN");
-        task.enqueue(new Callback<NewsResponse>() {
-            @Override
-            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
-                // if success print body, else print response(message, code)
-                if (response.isSuccessful()) {
-                    Log.d("getTopHeadlines", response.body().toString());
-                } else {
-                    Log.d("getTopHeadlines", response.toString());
-                }
-            }
 
-            @Override
-            public void onFailure(Call<NewsResponse> call, Throwable t) {
-                Log.d("getTopHeadlines", t.toString());
-            }
-        });
+
+        // TEST code: test the getTopHeadlines function.
+        //     1. moved to NewsRepository
+        //     2. use LiveData to store response
+//        NewsApi newsApi = retrofit.create(NewsApi.class);        // reflection
+//        // one call is one task, enqueue the task to let executor do it.
+//        // give a callback to handle response
+//        Call<NewsResponse> task = newsApi.getTopHeadlines("CN");
+//        task.enqueue(new Callback<NewsResponse>() {
+//            @Override
+//            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+//                // if success print body, else print response(message, code)
+//                if (response.isSuccessful()) {
+//                    Log.d("getTopHeadlines", response.body().toString());
+//                } else {
+//                    Log.d("getTopHeadlines", response.toString());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<NewsResponse> call, Throwable t) {
+//                Log.d("getTopHeadlines", t.toString());
+//            }
+//        });
 
         // NetworkOnMainThreadException: if send sync requests in main thread, then you will get this Exception
         // network为何不能在主线程：阻塞主线程 --> block UI
