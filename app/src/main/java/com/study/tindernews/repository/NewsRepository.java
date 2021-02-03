@@ -19,7 +19,7 @@ public class NewsRepository {
     public NewsRepository(Context context) {
         newsApi = RetrofitClient.newInstance(context).create(NewsApi.class);
     }
-    
+
     //  理解执行顺序：
     //  1. task enqueue
     //  2. return 这个LiveData（空的）
