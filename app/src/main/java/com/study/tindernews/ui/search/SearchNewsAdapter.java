@@ -37,7 +37,8 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
     @NonNull
     @Override
     public SearchNewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_news_item, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext()); // parent's context (search fragment)
+        View view = inflater.inflate(R.layout.search_news_item, parent, false);
         return new SearchNewsViewHolder(view);
     }
 
