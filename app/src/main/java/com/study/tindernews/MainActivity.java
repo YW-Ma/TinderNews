@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view); // 找到bottom
+        BottomNavigationView navView = findViewById(R.id.nav_view); // find view for bottom in XML layout files.
         // 找到fragment host     host fragment --> activity_main/host_fragment
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
