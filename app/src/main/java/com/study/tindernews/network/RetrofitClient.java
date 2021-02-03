@@ -3,6 +3,7 @@ package com.study.tindernews.network;
 import android.content.Context;
 
 import com.ashokvarma.gander.GanderInterceptor;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.study.tindernews.Credentials;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class RetrofitClient {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new GanderInterceptor(context).showNotification(true)) // add the Gander Interceptor in RetrofitClient
                 .addInterceptor(new HeaderInterceptor()) // add my API_KEY in header.
+                .addNetworkInterceptor(new StethoInterceptor())
                 .build();
 
         return new Retrofit.Builder()

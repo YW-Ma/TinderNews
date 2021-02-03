@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.ashokvarma.gander.Gander;
 import com.ashokvarma.gander.imdb.GanderIMDB;
+import com.facebook.stetho.Stetho;
 
 public class TinderNewsApplication extends Application {
     // 区分activity与application：
@@ -17,5 +18,6 @@ public class TinderNewsApplication extends Application {
         // Gander lets you see each HTTP request from an app,
         // it’s a very convenient network debugging tool.
         Gander.setGanderStorage(GanderIMDB.getInstance());
+        Stetho.initializeWithDefaults(this);
     }
 }
