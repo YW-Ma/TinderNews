@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment implements CardStackListener {
         NewsRepository repository = new NewsRepository(getContext());
         viewModel = new ViewModelProvider(this, new NewsViewModelFactory(repository))
                 .get(HomeViewModel.class); // Factory pattern: get里会call create() 返回class对应viewModel
-        viewModel.setCountryInput("us"); // test
+        viewModel.setCountryInput("us"); // test, us has more urlImages.
         viewModel
                 .getTopHeadlines()
                 .observe(
