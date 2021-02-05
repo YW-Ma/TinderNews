@@ -31,17 +31,18 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
 
 
     // 2. Adapter overrides - three methods:---------------------------------------
+
+    // onCreateViewHolder is for providing the generated item views;
     // 创建一个View，把它放到ViewHolder中去bind。bind好了返回对象，未来就不需要再bind了。
-    // bind --> costly
-    // so: bind in advance, update bound fields when "onBindViewHolder"
     @NonNull
     @Override
     public SearchNewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext()); // parent's context (search fragment)
         View view = inflater.inflate(R.layout.search_news_item, parent, false);
-        return new SearchNewsViewHolder(view);
+        return new SearchNewsViewHolder(view);  // bind in advance, update bound fields when "onBindViewHolder"
     }
 
+    // onBindViewHolder is for binding the data with a view. (data)
     // 这个bind是绑定的数据和我们已经拿出来的view fields；而不是类似ViewHolder的构造函数那样，把layout和view绑定起来。
     // data bind fields (not bind layout with view class)
     @Override
@@ -56,6 +57,7 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
         Picasso.get().load(article.urlToImage).into(holder.itemImageView); // loading and caching library.
     }
 
+    // getItemCount is for providing the current data collection size
     @Override
     public int getItemCount() {
         return articles.size();
