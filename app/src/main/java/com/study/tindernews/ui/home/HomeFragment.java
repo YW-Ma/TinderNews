@@ -54,8 +54,8 @@ public class HomeFragment extends Fragment implements CardStackListener {
 
         // Setup CardStackView
         CardSwipeAdapter swipeAdapter = new CardSwipeAdapter(); // 将Adapter创建，它负责data -> views
-        // The event listener is set through CardStackLayoutManager on the 2nd argument in the constructor.
-        layoutManager = new CardStackLayoutManager(requireContext(), this);// need access Android resources, so provide a Context。The 2nd argument this is the listener implementation.
+        // The event listener is set through CardStackLayoutManager on the 2nd argument in the constructor. --> so when I press a button, an animation will show.
+        layoutManager = new CardStackLayoutManager(requireContext(), this);// need access Android resources, so provide a Context.
         layoutManager.setStackFrom(StackFrom.Top); // CardStackView’s documentation says default is None. We need Top. https://github.com/yuyakaido/CardStackView#stack-from
         binding.homeCardStackView.setLayoutManager(layoutManager);
         binding.homeCardStackView.setAdapter(swipeAdapter);
