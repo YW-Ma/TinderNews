@@ -22,15 +22,15 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
     private List<Article> articles = new ArrayList<>();
 
 
-    // 把提供给我的数据，放到articles里面
+    // every time a new list is set, refresh and re-render the data.
     public void setArticles(List<Article> newsList) {
         articles.clear();
         articles.addAll(newsList);
-        notifyDataSetChanged(); // 提醒adapter来refresh（有新数据了）
+        notifyDataSetChanged(); // 提醒adapter来refresh（有新数据了）- 相当于暴力reload整个内容。
     }
 
 
-    // 2. Adapter overrides:---------------------------------------
+    // 2. Adapter overrides - three methods:---------------------------------------
     // 创建一个View，把它放到ViewHolder中去bind。bind好了返回对象，未来就不需要再bind了。
     // bind --> costly
     // so: bind in advance, update bound fields when "onBindViewHolder"
@@ -53,7 +53,7 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
         // fill text into corresponding view
         holder.itemTitleTextView.setText(article.title);
         // set image view using url
-        Picasso.get().load(article.urlToImage).into(holder.itemImageView);
+        Picasso.get().load(article.urlToImage).into(holder.itemImageView); // loading and caching library.
     }
 
     @Override

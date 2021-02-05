@@ -82,7 +82,10 @@ public class SearchFragment extends Fragment {
                         newsResponse -> {
                             if (newsResponse != null) {
                                 Log.d("SearchFragment", newsResponse.toString());
-                                newsAdapter.setArticles(newsResponse.articles);
+                                newsAdapter.setArticles(newsResponse.articles); // reset list and refresh
+                                // 注意：我不是只渲染新加入的那个，而是将整个列表都重新渲染。
+                                // 但是Picasso、Glide、Fresco都可以实现loading和caching，
+                                // 这样尽管我们refresh整个list，但是不会重新下载所有图片。
                             }
                         });
     }
