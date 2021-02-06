@@ -1,10 +1,14 @@
 package com.study.tindernews.repository;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.study.tindernews.TinderNewsApplication;
+import com.study.tindernews.database.TinderNewsDatabase;
+import com.study.tindernews.model.Article;
 import com.study.tindernews.model.NewsResponse;
 import com.study.tindernews.network.NewsApi;
 import com.study.tindernews.network.RetrofitClient;
@@ -16,8 +20,11 @@ import retrofit2.Response;
 public class NewsRepository {
 
     private final NewsApi newsApi;
+    private final TinderNewsDatabase database;
+
     public NewsRepository(Context context) {
         newsApi = RetrofitClient.newInstance(context).create(NewsApi.class);
+        database = ((TinderNewsApplication) context.getApplicationContext()).getDatabase(); // get the singleton database instance from context
     }
 
     //  理解执行顺序：
@@ -69,5 +76,44 @@ public class NewsRepository {
                             }
                         });
         return everyThingLiveData;
+    }
+
+    // Part 3 favorite API
+    public LiveData<Boolean> favoriteArticle(Article article) {
+        MutableLiveData<Boolean> resultLiveData = new MutableLiveData<>();
+        new FavoriteAsyncTask(database, resultLiveData).execute(article);
+        return resultLiveData; // the LiveData is returned immediately.
+        // The database operation runs in the background and notifies the result through the resultLiveData at a later time.
+    }
+
+
+    // We use a simple AsyncTask to access database.
+    private static class FavoriteAsyncTask extends AsyncTask<Article, Void, Boolean> {
+
+        private final TinderNewsDatabase database;
+        private final MutableLiveData<Boolean> liveData;
+
+        private FavoriteAsyncTask(TinderNewsDatabase database, MutableLiveData<Boolean> liveData) {
+            this.database = database;
+            this.liveData = liveData;
+        }
+
+        // Everything inside doInBackground would be executed on a separate background thread.
+        @Override
+        protected Boolean doInBackground(Article... articles) {
+            Article article = articles[0];
+            try {
+                database.articleDao().saveArticle(article);
+            } catch (Exception e) {
+                return false;
+            }
+            return true;
+        }
+
+        // After doInBackground finishes, onPostExecute would be executed back on the main UI thread.
+        @Override
+        protected void onPostExecute(Boolean success) {
+            liveData.setValue(success);
+        }
     }
 }

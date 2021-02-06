@@ -1,7 +1,12 @@
 package com.study.tindernews.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Objects;
 
+@Entity
 public class Article {
     // The source field are omitted intentionally.
     // source是一个Object，UI用不到，而且难以映射到数据库。我就删掉了。
@@ -11,6 +16,9 @@ public class Article {
     public String description;
     public String publishedAt;
     public String title;
+
+    @NonNull
+    @PrimaryKey
     public String url;
     public String urlToImage;
 
