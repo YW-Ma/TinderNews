@@ -15,3 +15,4 @@ My API_KEY is sent via header, not url parameters. (An Interceptor is implemente
 ## For mainland China user 温馨提示
 - 在大陆的用户需要科学上网才能访问newsapi
 - 如果您的代理模式可以选择“规则模式-rule”和“全局模式-global”，请选择全局模式。
+- 如果不科学上网，GET请求会失败，Response是javax.net.ssl.SSLHandshakeException
