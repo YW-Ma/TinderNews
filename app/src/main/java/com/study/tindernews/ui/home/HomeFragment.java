@@ -26,10 +26,10 @@ import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements CardStackListener {
+public class HomeFragment extends Fragment implements CardStackListener { // implements CardStackListener here, since I need to pass a listener into LayoutManager.
 
     private HomeViewModel viewModel;
-    private FragmentHomeBinding binding;
+    private FragmentHomeBinding binding; // one FragmentHome, many(5) swip_news_card held by adapter.
     private CardStackLayoutManager layoutManager;
     private List<Article> articles;
 
@@ -54,8 +54,8 @@ public class HomeFragment extends Fragment implements CardStackListener {
 
         // Setup CardStackView
         CardSwipeAdapter swipeAdapter = new CardSwipeAdapter(); // 将Adapter创建，它负责data -> views
-        // The event listener is set through CardStackLayoutManager on the 2nd argument in the constructor. --> so when I press a button, an animation will show.
-        layoutManager = new CardStackLayoutManager(requireContext(), this);// need access Android resources, so provide a Context.
+        // The event listener(implements CardStackListener) is set through CardStackLayoutManager on the 2nd argument in the constructor. --> so when I press a button, an animation will show.
+        layoutManager = new CardStackLayoutManager(requireContext(), this); // 1: need access Android resources, so provide a Context. 2: need a listener. HomeFragment implements the listener, so pass "this" into it
         layoutManager.setStackFrom(StackFrom.Top); // CardStackView’s documentation says default is None. We need Top. https://github.com/yuyakaido/CardStackView#stack-from
         binding.homeCardStackView.setLayoutManager(layoutManager);
         binding.homeCardStackView.setAdapter(swipeAdapter);
@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment implements CardStackListener {
         binding.homeLikeButton.setOnClickListener(v -> swipeCard(Direction.Right));
         binding.homeUnlikeButton.setOnClickListener(v -> swipeCard(Direction.Left));
 
+        // MVVM pattern : observe LiveData
         NewsRepository repository = new NewsRepository(getContext());
         viewModel = new ViewModelProvider(this, new NewsViewModelFactory(repository))
                 .get(HomeViewModel.class); // Factory pattern: get里会call create() 返回class对应viewModel
@@ -106,6 +107,8 @@ public class HomeFragment extends Fragment implements CardStackListener {
             Log.d("CardStackView", "Unliked " + layoutManager.getTopPosition());
         } else if (direction == Direction.Right) {
             Log.d("CardStackView", "Liked "  + layoutManager.getTopPosition());
+            Article article = articles.get(layoutManager.getTopPosition() -1);
+            viewModel.setFavoriteArticleInput(article); // it will finally call favorite API under NewsRepository.java
         }
     }
 

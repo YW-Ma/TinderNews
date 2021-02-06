@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.study.tindernews.model.Article;
 import com.study.tindernews.model.NewsResponse;
 import com.study.tindernews.repository.NewsRepository;
 
@@ -35,4 +36,11 @@ public class HomeViewModel extends ViewModel {
 //    薯片盒子：是getTopHeadlines的返回值，是一个新的盒子。
 //    这个盒子先返回，等response回来了里面会突然出现薯片。
 //    subscribe薯片盒子的view，会知道薯片来了。
+
+
+    //  This time, we don’t need to expose the observing result.
+    //  So we don’t have to do the Transformations.switchMap trick.
+    public void setFavoriteArticleInput(Article article) {
+        repository.favoriteArticle(article); // do not need to return a LiveData
+    }
 }
