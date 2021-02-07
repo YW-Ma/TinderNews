@@ -18,14 +18,14 @@ import java.util.List;
 import com.study.tindernews.R;
 
 public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolder> {
-    interface ItemCallback {
 
+    // delete favorite articles: provide listener & set callback for adapter
+    interface ItemCallback {
         void onOpenDetails(Article article); // opening a new fragment for article details.
-        void onRemoveFavorite(Article article); // to remove articles in the saved database
+        void onRemoveFavorite(Article article); // to remove articles in the saved database.
     }
     private ItemCallback itemCallback;
-
-    public void setItemCallback(ItemCallback itemCallback) {
+    public void setItemCallback(ItemCallback itemCallback) { // call by onViewCreated in SaveFragment.
         this.itemCallback = itemCallback;
     }
 
