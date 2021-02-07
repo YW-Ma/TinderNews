@@ -13,6 +13,8 @@ import com.study.tindernews.model.NewsResponse;
 import com.study.tindernews.network.NewsApi;
 import com.study.tindernews.network.RetrofitClient;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +27,8 @@ public class NewsRepository {
     public NewsRepository(Context context) {
         newsApi = RetrofitClient.newInstance(context).create(NewsApi.class);
         database = ((TinderNewsApplication) context.getApplicationContext()).getDatabase(); // get the singleton database instance from context
+        // In TinderNewsApplication, I create a getter to access the singleton database
+        // You can also use Dependency Injection (Dagger2) to get the database.
     }
 
     //  理解执行顺序：
@@ -78,14 +82,26 @@ public class NewsRepository {
         return everyThingLiveData;
     }
 
-    // Part 3 favorite API
+    // Part 3 favorite API --> run database query in background thread
+    // API - 1    I write an AsyncTask class to implement set favorite (just for practicing)
     public LiveData<Boolean> favoriteArticle(Article article) {
         MutableLiveData<Boolean> resultLiveData = new MutableLiveData<>();
-        new FavoriteAsyncTask(database, resultLiveData).execute(article);
+        new FavoriteAsyncTask(database, resultLiveData).execute(article); // execute -> doInBackground -> onPostExecute
         return resultLiveData; // the LiveData is returned immediately.
         // The database operation runs in the background and notifies the result through the resultLiveData at a later time.
     }
 
+    // API - 2    read operation don't need async task 读操作不需要async task
+    public LiveData<List<Article>> getAllSavedArticles() {
+        return database.articleDao().getAllArticles();
+    }
+
+    // API - 3    write operation need async task 写操作需要async task.
+    // I don't need result, so I can use lambda.
+    public void deleteSavedArticle(Article article) {
+        AsyncTask.execute(() -> database.articleDao().deleteArticle(article));
+        // data racing handled by SQLite
+    }
 
     // We use a simple AsyncTask to access database.
     private static class FavoriteAsyncTask extends AsyncTask<Article, Void, Boolean> {
