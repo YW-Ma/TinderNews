@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,8 +32,11 @@ public class SaveFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) { // Bundle (key->value) 但是不是HashMap，负责process之间传数据。
         // Inflate the layout for this fragment -- 这个inflater的context应该是activity了。
-        return inflater.inflate(R.layout.fragment_save, container, false);
+        // return inflater.inflate(R.layout.fragment_save, container, false);
+        binding =  FragmentSaveBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
+
 
     /**
      * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
@@ -48,6 +52,12 @@ public class SaveFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NewsRepository repository = new NewsRepository(getContext());
+        SavedNewsAdapter savedNewsAdapter = new SavedNewsAdapter();
+        binding.newsSavedRecyclerView.setAdapter(savedNewsAdapter);
+        binding.newsSavedRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        // Why new LinearLayout → row by row recycler view’s manager
+
+
         // Creates ViewModelProvider, which will create ViewModels via the given Factory
         // and retain them in a store of the given ViewModelStoreOwner.
         ViewModelProvider viewModelProvider = new ViewModelProvider(this, new NewsViewModelFactory(repository));
@@ -59,6 +69,7 @@ public class SaveFragment extends Fragment {
                         savedArticles -> {
                             if (savedArticles != null) {
                                 Log.d("SaveFragment", savedArticles.toString());
+                                savedNewsAdapter.setArticles(savedArticles); // data binding
                             }
                         });
     }
