@@ -18,6 +18,17 @@ import java.util.List;
 import com.study.tindernews.R;
 
 public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolder> {
+    interface ItemCallback {
+
+        void onOpenDetails(Article article); // opening a new fragment for article details.
+        void onRemoveFavorite(Article article); // to remove articles in the saved database
+    }
+    private ItemCallback itemCallback;
+
+    public void setItemCallback(ItemCallback itemCallback) {
+        this.itemCallback = itemCallback;
+    }
+
     // 1. Supporting data:
     private List<Article> articles = new ArrayList<>();
 
@@ -40,6 +51,10 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
         Article article = articles.get(position);
         holder.authorTextView.setText(article.author);
         holder.descriptionTextView.setText(article.description);
+        // Use the itemCallback to inform the implementer the onRemoveFavorite event when the favoriteIcon is clicked, also inform the opening for details event.
+        // the callbacks is held by savedNewsAdapter after onViewCreated.
+        holder.favoriteIcon.setOnClickListener(v -> itemCallback.onRemoveFavorite(article));
+        holder.itemView.setOnClickListener(v -> itemCallback.onOpenDetails(article));
     }
 
     @Override

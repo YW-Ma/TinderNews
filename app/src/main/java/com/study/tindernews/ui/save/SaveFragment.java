@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.study.tindernews.R;
 import com.study.tindernews.databinding.FragmentSaveBinding;
+import com.study.tindernews.model.Article;
 import com.study.tindernews.repository.NewsRepository;
 import com.study.tindernews.repository.NewsViewModelFactory;
 
@@ -57,7 +58,6 @@ public class SaveFragment extends Fragment {
         binding.newsSavedRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         // Why new LinearLayout → row by row recycler view’s manager
 
-
         // Creates ViewModelProvider, which will create ViewModels via the given Factory
         // and retain them in a store of the given ViewModelStoreOwner.
         ViewModelProvider viewModelProvider = new ViewModelProvider(this, new NewsViewModelFactory(repository));
@@ -72,5 +72,20 @@ public class SaveFragment extends Fragment {
                                 savedNewsAdapter.setArticles(savedArticles); // data binding
                             }
                         });
+
+        //  an anonymous implementation of ItemCallback to the savedNewsAdapter
+        savedNewsAdapter.setItemCallback(new SavedNewsAdapter.ItemCallback() {
+            @Override
+            public void onOpenDetails(Article article) {
+                // TODO: open the detail page
+                Log.d("onOpenDetails", article.toString());
+            }
+
+            // We call viewModel.deleteSavedArticle when onRemoveFavorite happens.
+            @Override
+            public void onRemoveFavorite(Article article) {
+                viewModel.deleteSavedArticle(article);
+            }
+        });
     }
 }
