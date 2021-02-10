@@ -19,15 +19,18 @@ import com.study.tindernews.R;
 
 public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolder> {
 
+    // interface: 好处：flexibility。不需要把saveFragment引入进来。
+    //            只需要最终把private的itemCallback实现了即可。
     // delete favorite articles: provide listener & set callback for adapter
     interface ItemCallback {
         void onOpenDetails(Article article); // opening a new fragment for article details.
         void onRemoveFavorite(Article article); // to remove articles in the saved database.
     }
-    private ItemCallback itemCallback;
+    private ItemCallback itemCallback; // will be implemented.
     public void setItemCallback(ItemCallback itemCallback) { // call by onViewCreated in SaveFragment.
         this.itemCallback = itemCallback;
     }
+
 
     // 1. Supporting data:
     private List<Article> articles = new ArrayList<>();
@@ -51,8 +54,9 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
         Article article = articles.get(position);
         holder.authorTextView.setText(article.author);
         holder.descriptionTextView.setText(article.description);
-        // Use the itemCallback to inform the implementer the onRemoveFavorite event when the favoriteIcon is clicked, also inform the opening for details event.
-        // the callbacks is held by savedNewsAdapter after onViewCreated.
+        // Use the itemCallback to inform the adapter the onRemoveFavorite event when the favoriteIcon is clicked,
+        // also inform the opening for details event.
+        // (SavedNewsAdapter/onViewCreated --> implement onOpen, onRemove methods)
         holder.favoriteIcon.setOnClickListener(v -> itemCallback.onRemoveFavorite(article));
         holder.itemView.setOnClickListener(v -> itemCallback.onOpenDetails(article));
     }

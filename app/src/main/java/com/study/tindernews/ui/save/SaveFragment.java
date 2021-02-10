@@ -54,7 +54,7 @@ public class SaveFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         NewsRepository repository = new NewsRepository(getContext());
         SavedNewsAdapter savedNewsAdapter = new SavedNewsAdapter();
-        binding.newsSavedRecyclerView.setAdapter(savedNewsAdapter);
+        binding.newsSavedRecyclerView.setAdapter(savedNewsAdapter); // set adapter for a recycler view.
         binding.newsSavedRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         // Why new LinearLayout → row by row recycler view’s manager
 
@@ -73,7 +73,8 @@ public class SaveFragment extends Fragment {
                             }
                         });
 
-        //  an anonymous implementation of ItemCallback to the savedNewsAdapter
+        // implement the interface.
+        // an anonymous implementation of ItemCallback to the savedNewsAdapter
         savedNewsAdapter.setItemCallback(new SavedNewsAdapter.ItemCallback() {
             @Override
             public void onOpenDetails(Article article) {

@@ -8,7 +8,7 @@ import com.study.tindernews.ui.home.HomeViewModel;
 import com.study.tindernews.ui.save.SaveViewModel;
 import com.study.tindernews.ui.search.SearchViewModel;
 
-// 通过工厂模式来创建ViewModel
+// 通过工厂模式来创建ViewModel, 来自ViewModelProvider.Factory --> 存储ViewModel信息
 // 这里就是Factory，输入对应的class，就可以获得HomeViewMode或者SearchViewModel
 // 使用工厂模式的原因：
 //      所有创建的ViewModel都在一个ViewModelStoreOwner store，这个store和app进程的生命周期不一样。
