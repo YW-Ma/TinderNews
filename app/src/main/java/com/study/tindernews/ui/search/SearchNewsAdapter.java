@@ -18,6 +18,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.SearchNewsViewHolder> {
+    // I create a new interface, since we don't need remove method here.
+    interface ItemCallback {
+        void onOpenDetails(Article article);
+    }
+
+    private ItemCallback itemCallback;
+
+    public void setItemCallback(ItemCallback itemCallback) {
+        this.itemCallback = itemCallback;
+    }
+
+
+
     // 1. Supporting data:---------------------------------------
     private List<Article> articles = new ArrayList<>();
 
@@ -55,6 +68,8 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
         holder.itemTitleTextView.setText(article.title);
         // set image view using url
         Picasso.get().load(article.urlToImage).into(holder.itemImageView); // loading and caching library.
+        // listener:
+        holder.itemView.setOnClickListener(v -> itemCallback.onOpenDetails(article));
     }
 
     // getItemCount is for providing the current data collection size

@@ -4,10 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Article {
+public class Article implements Serializable { // implement Serializable: pass article between fragment safely.
     // The source field are omitted intentionally.
     // source是一个Object，UI用不到，而且难以映射到数据库。我就删掉了。
     // We do not need it for UI display. This also simplifies the database schema.

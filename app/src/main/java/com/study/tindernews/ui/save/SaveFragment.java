@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -80,6 +81,10 @@ public class SaveFragment extends Fragment {
             public void onOpenDetails(Article article) {
                 // TODO: open the detail page
                 Log.d("onOpenDetails", article.toString());
+                SaveFragmentDirections.ActionNavigationSaveToNavigationDetails direction = SaveFragmentDirections.actionNavigationSaveToNavigationDetails(article);
+                NavHostFragment.findNavController(SaveFragment.this).navigate(direction);
+                // 在nav_graph中，direction代表了一个action(一根线)， Type name comes from action id. “action_navigation_save_to_navigation_details”
+                // NavController负责执行我们这个direction。
             }
 
             // We call viewModel.deleteSavedArticle when onRemoveFavorite happens.

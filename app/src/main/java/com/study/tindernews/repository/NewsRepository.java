@@ -20,6 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewsRepository {
+    // MVVM --> Model part (Repository in Android)
 
     private final NewsApi newsApi;
     private final TinderNewsDatabase database;
