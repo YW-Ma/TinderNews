@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TinderNews</string>
+    <string name="app_name" translatable="false">TinderNews</string>
     <!--    Three string resources:   -->
     <string name="title_home">Home</string>
     <string name="title_save">Save</string>
