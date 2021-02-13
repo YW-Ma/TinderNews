@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         navController = navHostFragment.getNavController();
         // 1. link navView and controller
         NavigationUI.setupWithNavController(navView, navController);
-        // 2. link action bar and controller：action bar会显示名字、负责返回
-        NavigationUI.setupActionBarWithNavController(this, navController);
+//        // 2. link action bar and controller：action bar会显示名字、负责返回。Now we don't want it anymore.
+//        NavigationUI.setupActionBarWithNavController(this, navController);
     }
 
     @Override
