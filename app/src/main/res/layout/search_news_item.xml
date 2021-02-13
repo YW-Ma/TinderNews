@@ -25,7 +25,7 @@
         android:id="@+id/search_item_favorite"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_margin="6dp"
+        android:layout_margin="@dimen/margin_compact"
         android:src="@drawable/ic_favorite_24dp"
         app:tint="#e46363"
         app:layout_constraintLeft_toLeftOf="parent"

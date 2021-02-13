@@ -7,4 +7,5 @@
     <dimen name="margin_large">16dp</dimen>
     <dimen name="margin_compact">8dp</dimen>
     <dimen name="margin_xlarge">24dp</dimen>
+    <dimen name="margin_xxlarge">48dp</dimen>
 </resources>
