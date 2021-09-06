@@ -14,6 +14,7 @@ My API_KEY is sent via header, not url parameters. (An Interceptor is implemente
 
 ## Architecture
 ![Architecture](https://github.com/YW-Ma/TinderNews/blob/master/Architecture.png)
+![MVVM](https://github.com/YW-Ma/TinderNews/blob/master/TinderNews%20MVVM.png)
 
 ## For mainland China user 温馨提示
 - 在大陆的用户需要科学上网才能访问newsapi
